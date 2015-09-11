@@ -1,0 +1,90 @@
+Gitworkshop 2015-09-11
+----------------------------
+
+	1) Ziele
+	2) Grundlagen
+	3) Lokales Repository
+	4) Remote-Repository
+
+	2 a) Benutzung
+	------------------------------
+
+		Schema:
+
+		Remote Repostory (Code-Basis und History)
+		| 		push
+		|		|
+		pull	|
+		Lokales Repository (geklontes Remote-Repo)
+		commit	|		
+		|		|
+		|		checkout
+		Staging Bereich						
+		add		|				  Stash
+		|		|				 /
+		|		checkout		/
+		Workspace (zum Arbeiten)
+
+		Funktionsweise:
+
+		- Commits werden über eine SHA1-Hash identifiziert
+		- Hash wird aus dem Commit-Inhalt (Diff und Meta-Informationen) berechnet. 
+		- Commit-Informationen erhält man über
+			- git status
+			- git diff
+		
+		- Frisches Repository anlegen (master branch)
+			- git init (anlegen)
+				-Files anlegen			
+			- git add (add)
+			- git commit (commit)
+				-Files ändern
+			- git commit (-m <message> / --verbose für diff in der Commit-Message-Anzeige)
+
+		- Konfigutation
+			-git config --global user.email "daniel.pape@tngtech.com"
+			-git config --global user.name "Daniel Pape"
+			-git config --global core.editor "vi"
+			- Konfiguration auch in .gitconfig
+
+		- Commits anschauen 
+			-git log (--reverse for latest commit on bottom /--graph für ASCII-Art)
+
+	2 b) Checkout/Branching/Merging
+	-----------------------------
+		Auf bestimmten Stand gehen		
+		- git checkout <hash>
+			- Technisch gesehen ist der Branch ein Pointer auf einen hash
+			- head zeigt auf die aktuelle Position im Workspace
+
+		Branch (aus Stand <hash>) anlegen
+		- git checkout -b <feature_branch>
+			- Gehe auf Stand und erzeuge einen Branch
+			- Zeigt nun auf eigenen Feature-Branch
+
+		Merge back:
+		- git checkout master (head auf master)
+		- git merge feature	(head auf neuen master-commit)
+		Hilfe, ich will nicht:
+		- git merge --abort
+
+		!Noch ist alles lokal!
+		!git branch <neuer-branch> erzeugt nur einen branch, lässt head aber auf altem Stand!
+
+	2 c) Tags
+	-----------------------------
+		git tag version-1 (Zeiger auf momentanen <hash>, im Prinzip fest)
+			- Für Releases etc.
+		//TODO: check man page wg. -a
+
+
+	2 d) Shelfing/Stashing
+	-----------------------------
+		- git stash (save "name")
+		- lokale änderung werden zwischengespeichert und dann revertet, man ist wieder auf head.
+		- git stash pop holt die Änderung zurück
+		- git stash list
+			returns eg. stash@{0}: WIP on master: 673f1b4 schon wieder ein file
+
+
+	
